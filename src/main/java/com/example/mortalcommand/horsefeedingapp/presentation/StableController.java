@@ -1,5 +1,8 @@
 package com.example.mortalcommand.horsefeedingapp.presentation;
 
+import com.example.mortalcommand.horsefeedingapp.StableMapper;
+import com.example.mortalcommand.horsefeedingapp.dto.StableDto;
+import com.example.mortalcommand.horsefeedingapp.dto.StableResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.Stable;
 import com.example.mortalcommand.horsefeedingapp.persistence.StableRepository;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +15,22 @@ import java.util.Optional;
 public class StableController {
 
     private final StableRepository stableRepository;
+    private final StableMapper stableMapper;
 
-    public StableController(StableRepository stableRepository) {
+    public StableController(StableRepository stableRepository, StableMapper stableMapper) {
         this.stableRepository = stableRepository;
+        this.stableMapper = stableMapper;
     }
 
     @GetMapping("/stables")
-    public ResponseEntity<List<Stable>> readStables() {
+    public ResponseEntity<List<StableDto>> readStables() {
         List<Stable> allStables = stableRepository.findAll();
-        return ResponseEntity.ok(allStables);
+        List<StableDto> stablesDtos = stableMapper.stablesToStableDtos(allStables);
+        return ResponseEntity.ok(stablesDtos);
     }
 
     @GetMapping("/stables/{stableid}")
-    public ResponseEntity<Stable> readStableById(@PathVariable("stableid") Long id) {
+    public ResponseEntity readStableById(@PathVariable("stableid") Long id) {
         if (id < 0) {
             return ResponseEntity.badRequest().build();
         }
@@ -36,27 +42,34 @@ public class StableController {
     }
 
     @PostMapping("/stables")
-    public ResponseEntity createStable(@RequestBody Stable stable) {
+    public ResponseEntity<StableResponseDto> createStable(@RequestBody StableDto stableDto) {
+        Stable stable = stableMapper.stableDtoToStable(stableDto);
         stableRepository.save(stable);
-        return ResponseEntity.notFound().build();
+        StableResponseDto stableResponseDto = stableMapper.stableToStableResponseDto(stable);
+        return ResponseEntity.ok(stableResponseDto);
     }
 
     @DeleteMapping("/stables/{stableId}")
-    public ResponseEntity removeStable(@PathVariable("stableId") Long id) {
+    public ResponseEntity<StableResponseDto> removeStable(@PathVariable("stableId") Long id) {
+        Optional<Stable> optionalStable = stableRepository.findById(id);
+        StableResponseDto stableResponseDto = stableMapper.stableToStableResponseDto(optionalStable.get());
         stableRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(stableResponseDto);
     }
 
     @PutMapping("/stables/{stableId}")
-    public ResponseEntity<Stable> updateStable(@PathVariable("stableId") Long id, @RequestBody Stable stableDetails) {
+    public ResponseEntity<StableResponseDto> updateStable(@PathVariable("stableId") Long id, @RequestBody StableDto stableDetails) {
         Optional<Stable> updateStable = stableRepository.findById(id);
+
         if (updateStable.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
             updateStable.get().setStableName(stableDetails.getStableName());
             updateStable.get().setLocation(stableDetails.getLocation());
             stableRepository.save(updateStable.get());
+            StableResponseDto stableResponseDto = stableMapper.stableToStableResponseDto(updateStable.get());
+            return ResponseEntity.ok(stableResponseDto);
         }
-        return ResponseEntity.ok(updateStable.orElse(null));
+
     }
 }
