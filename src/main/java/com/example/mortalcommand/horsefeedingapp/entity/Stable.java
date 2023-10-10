@@ -3,7 +3,7 @@ package com.example.mortalcommand.horsefeedingapp.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tables")
+@Table(name = "stables")
 public class Stable {
 
     @Id
