@@ -31,6 +31,11 @@ public class FeedingScheduleController {
         return feedingService.createFeedingSchedule(feedingScheduleDto);
     }
 
+    @DeleteMapping("/feedingschedules/{fsId}")
+    public ResponseEntity<FeedingScheduleResponseDto> removeFeedingSchedule(@PathVariable("fsId") Long id) {
+        return feedingService.removeFeedingSchedule(id);
+    }
+
 
 
 }

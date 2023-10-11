@@ -66,5 +66,16 @@ public class FeedingService {
         return ResponseEntity.ok(feedingScheduleMapper.fsToFsResponseDto(newFeedingSchedule));
     }
 
+    public ResponseEntity<FeedingScheduleResponseDto> removeFeedingSchedule(Long id) {
+        Optional<FeedingSchedule> optionalFS = feedingScheduleRepository.findById(id);
+
+        if (optionalFS.isEmpty()) {
+            FeedingScheduleResponseDto emptyFsResponseDto = new FeedingScheduleResponseDto();
+            return ResponseEntity.ok(emptyFsResponseDto);
+        }
+        FeedingScheduleResponseDto feedingScheduleResponseDto = feedingScheduleMapper.fsToFsResponseDto(optionalFS.get());
+        feedingScheduleRepository.deleteById(id);
+        return ResponseEntity.ok(feedingScheduleResponseDto);
+    }
 
 }
