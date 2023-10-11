@@ -32,6 +32,7 @@ public class HorseService {
         this.horseMapper = horseMapper;
     }
 
+    //TODO !!!!!!!!!!!!!
     public HorseResponseDto createHorse(HorseDto horseDto) {
         Optional<Owner> optionalOwner = ownerRepository.findOnwerByOwnerName(horseDto.getOwnerName());
         Optional<Stable> optionalStable = stableRepository.findStableByStableName(horseDto.getStableName());

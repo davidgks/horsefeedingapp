@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface HorseRepository extends JpaRepository<Horse, Long> {
 
     Optional<Horse> findHorseByOfficialName(String officialName);
+    Optional<Horse> findHorseByGuid(String horseGuid);
 }
