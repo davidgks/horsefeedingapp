@@ -2,6 +2,8 @@ package com.example.mortalcommand.horsefeedingapp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "food_types")
 public class FoodType {
@@ -12,6 +14,9 @@ public class FoodType {
     private Long id;
 
     private String foodName;
+
+    @OneToMany(mappedBy = "foodType")
+    private Set<FeedingSchedule> feedingScheduleSet;
 
     public Long getId() {
         return id;
@@ -27,5 +32,13 @@ public class FoodType {
 
     public void setFoodName(String foodName) {
         this.foodName = foodName;
+    }
+
+    public Set<FeedingSchedule> getFeedingScheduleSet() {
+        return feedingScheduleSet;
+    }
+
+    public void setFeedingScheduleSet(Set<FeedingSchedule> feedingScheduleSet) {
+        this.feedingScheduleSet = feedingScheduleSet;
     }
 }

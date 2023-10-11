@@ -1,34 +1,17 @@
-package com.example.mortalcommand.horsefeedingapp.entity;
+package com.example.mortalcommand.horsefeedingapp.dto;
 
-import jakarta.persistence.*;
-
-import java.sql.Time;
 import java.time.LocalTime;
-import java.util.Set;
 
-@Entity
-@Table(name = "feeding_schedules")
-public class FeedingSchedule {
+public class FeedingScheduleResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idfeeding_schedule")
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "horse_id")
-    private Horse horse;
-
-    @ManyToOne
-    @JoinColumn(name = "foodtype_id")
-    private FoodType foodType;
-
+    private String horseGuid;
+    private String foodTypeName;
     private LocalTime feedingStartTime;
-
     private LocalTime feedingEndTime;
-
     private Long foodQuantityInKg;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -37,20 +20,20 @@ public class FeedingSchedule {
         this.id = id;
     }
 
-    public Horse getHorse() {
-        return horse;
+    public String getHorseGuid() {
+        return horseGuid;
     }
 
-    public void setHorse(Horse horse) {
-        this.horse = horse;
+    public void setHorseGuid(String horseGuid) {
+        this.horseGuid = horseGuid;
     }
 
-    public FoodType getFoodType() {
-        return foodType;
+    public String getFoodTypeName() {
+        return foodTypeName;
     }
 
-    public void setFoodType(FoodType foodType) {
-        this.foodType = foodType;
+    public void setFoodTypeName(String foodTypeName) {
+        this.foodTypeName = foodTypeName;
     }
 
     public LocalTime getFeedingStartTime() {

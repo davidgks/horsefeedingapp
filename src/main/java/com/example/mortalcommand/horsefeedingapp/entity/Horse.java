@@ -1,6 +1,9 @@
 package com.example.mortalcommand.horsefeedingapp.entity;
 
 import jakarta.persistence.*;
+import org.mapstruct.Mapping;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "horses")
@@ -30,6 +33,9 @@ public class Horse {
     @ManyToOne
     @JoinColumn(name = "stable_id", nullable = false)
     private Stable stable;
+
+    @OneToMany(mappedBy = "horse")
+    private Set<FeedingSchedule> feedingSchedules;
 
     public Long getId() {
         return id;
