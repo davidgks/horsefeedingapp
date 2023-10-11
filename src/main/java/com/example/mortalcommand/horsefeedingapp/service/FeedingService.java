@@ -66,16 +66,28 @@ public class FeedingService {
         return ResponseEntity.ok(feedingScheduleMapper.fsToFsResponseDto(newFeedingSchedule));
     }
 
-    public ResponseEntity<FeedingScheduleResponseDto> removeFeedingSchedule(Long id) {
-        Optional<FeedingSchedule> optionalFS = feedingScheduleRepository.findById(id);
+    public ResponseEntity<FeedingScheduleResponseDto> removeFeedingScheduleById(Long id) {
+        Optional<FeedingSchedule> optionalFs = feedingScheduleRepository.findById(id);
 
-        if (optionalFS.isEmpty()) {
+        if (optionalFs.isEmpty()) {
             FeedingScheduleResponseDto emptyFsResponseDto = new FeedingScheduleResponseDto();
             return ResponseEntity.ok(emptyFsResponseDto);
         }
-        FeedingScheduleResponseDto feedingScheduleResponseDto = feedingScheduleMapper.fsToFsResponseDto(optionalFS.get());
+        FeedingScheduleResponseDto feedingScheduleResponseDto = feedingScheduleMapper.fsToFsResponseDto(optionalFs.get());
         feedingScheduleRepository.deleteById(id);
         return ResponseEntity.ok(feedingScheduleResponseDto);
+    }
+
+    public ResponseEntity<FeedingScheduleResponseDto> updateFeedingScheduleById(Long id, FeedingScheduleDto feedingScheduleDto) {
+        Optional<FeedingSchedule> optionalFs = feedingScheduleRepository.findById(id);
+
+        if (optionalFs.isEmpty()) {
+            FeedingScheduleResponseDto emptyFsResponseDto = new FeedingScheduleResponseDto();
+            return ResponseEntity.ok(emptyFsResponseDto);
+        }
+        FeedingSchedule updatedFeedingSchedule = feedingScheduleMapper.updateFsFromFsDto(feedingScheduleDto, optionalFs.get());
+        feedingScheduleRepository.save(updatedFeedingSchedule);
+        return ResponseEntity.ok(feedingScheduleMapper.fsToFsResponseDto(updatedFeedingSchedule));
     }
 
 }

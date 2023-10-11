@@ -9,6 +9,7 @@ import com.example.mortalcommand.horsefeedingapp.entity.FoodType;
 import com.example.mortalcommand.horsefeedingapp.entity.Horse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 import java.util.HashSet;
@@ -30,4 +31,7 @@ public interface FeedingScheduleMapper {
     @Mapping(source = "foodType.foodName", target = "foodTypeName")
     FeedingScheduleResponseDto fsToFsResponseDto(FeedingSchedule feedingSchedule);
 
+    @Mapping(source = "horseGuid", target = "horse.guid")
+    @Mapping(source = "foodTypeName", target = "foodType.foodName")
+    FeedingSchedule updateFsFromFsDto(FeedingScheduleDto feedingScheduleDto, @MappingTarget FeedingSchedule feedingSchedule);
 }

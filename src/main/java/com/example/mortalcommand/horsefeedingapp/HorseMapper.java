@@ -21,15 +21,6 @@ public interface HorseMapper {
     @Mapping(source = "stable.stableName", target = "stableName")
     HorseDto horseToHorseDto(Horse horse);
 
-//    @Named("ownerToString")
-//    default String ownerToString(Owner owner) {
-//        if (owner != null) {
-//            return owner.getFirst_name() +  " " + owner.getLast_name();
-//        } else {
-//            return null;
-//        }
-//    }
-
     @Mapping(source = "ownerName", target = "owner.ownerName")
     @Mapping(source = "stableName", target = "stable.stableName")
     Horse horseDtoToHorse(HorseDto horseDto);
