@@ -3,11 +3,10 @@ package com.example.mortalcommand.horsefeedingapp.dto;
 public class HorseDto {
     private String guid;
     private String officialName;
+    private String nickname;
     private String breed;
-
-    private String owner;
-
-    private String stable;
+    private String ownerName;
+    private String stableName;
 
     public String getGuid() {
         return guid;
@@ -25,6 +24,14 @@ public class HorseDto {
         this.officialName = officialName;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public String getBreed() {
         return breed;
     }
@@ -33,19 +40,19 @@ public class HorseDto {
         this.breed = breed;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
-    public String getStable() {
-        return stable;
+    public String getStableName() {
+        return stableName;
     }
 
-    public void setStable(String stable) {
-        this.stable = stable;
+    public void setStableName(String stableName) {
+        this.stableName = stableName;
     }
 }

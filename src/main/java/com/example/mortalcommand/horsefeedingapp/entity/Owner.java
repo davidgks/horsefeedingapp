@@ -10,11 +10,7 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idowner")
     private Long Id;
-
-    private String first_name;
-
-    private String last_name;
-
+    private String ownerName;
     private String email;
 
     public Long getId() {
@@ -25,20 +21,12 @@ public class Owner {
         Id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public String getEmail() {

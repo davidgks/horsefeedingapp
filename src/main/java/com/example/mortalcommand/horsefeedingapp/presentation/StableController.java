@@ -29,6 +29,8 @@ public class StableController {
         return ResponseEntity.ok(stablesDtos);
     }
 
+    // TODO
+    // Refactor with Dtos
     @GetMapping("/stables/{stableid}")
     public ResponseEntity readStableById(@PathVariable("stableid") Long id) {
         if (id < 0) {

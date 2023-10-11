@@ -6,10 +6,10 @@ public class HorseResponseDto {
     private String guid;
     private String officialName;
     private String breed;
-
-    private String owner;
-
-    private String stable;
+    private Long ownerId;
+    private String ownerName;
+    private Long stableId;
+    private String stableName;
 
     public Long getId() {
         return id;
@@ -43,19 +43,35 @@ public class HorseResponseDto {
         this.breed = breed;
     }
 
-    public String getOwner() {
-        return owner;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
-    public String getStable() {
-        return stable;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setStable(String stable) {
-        this.stable = stable;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public Long getStableId() {
+        return stableId;
+    }
+
+    public void setStableId(Long stableId) {
+        this.stableId = stableId;
+    }
+
+    public String getStableName() {
+        return stableName;
+    }
+
+    public void setStableName(String stableName) {
+        this.stableName = stableName;
     }
 }
