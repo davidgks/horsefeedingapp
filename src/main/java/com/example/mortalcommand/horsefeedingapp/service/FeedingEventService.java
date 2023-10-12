@@ -38,7 +38,7 @@ public class FeedingEventService {
     }
 
     /**
-     * Returns a list of all the feeding events in the database
+     * Gets a list of all the feeding events from the database
      */
     public ResponseEntity<List<FeedingEventResponseDto>> readAllFeedingEvents() {
         List<FeedingEvent> allFeedingEvents = feedingEventRepository.findAll();
@@ -66,8 +66,6 @@ public class FeedingEventService {
                 return ResponseEntity.ok(feedingEventMapper.feedingEventToFeedingEventResponseDto(feedingEvent));
             }
         }
-//        FeedingEvent feedingEvent = new FeedingEvent();
-//        return ResponseEntity.ok(feedingEventMapper.feedingEventToFeedingEventResponseDto(feedingEvent));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Horse with GUID " + triggerFeedingEventDto.getHorseGuid() + " is not allowed to eat right now!");
     }
 
