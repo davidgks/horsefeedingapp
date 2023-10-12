@@ -2,6 +2,7 @@ package com.example.mortalcommand.horsefeedingapp.presentation;
 
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventResponseDto;
+import com.example.mortalcommand.horsefeedingapp.dto.TriggerFeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.service.FeedingEventService;
 import com.example.mortalcommand.horsefeedingapp.service.FeedingService;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,11 @@ public class FeedingEventController {
     @GetMapping("/feedingevents")
     public ResponseEntity<List<FeedingEventResponseDto>> readAllFeedingEvents() {
         return feedingEventService.readAllFeedingEvents();
+    }
+
+    @PostMapping("/feedingEvent")
+    public ResponseEntity<?> setFeedingEventAsCompleted(@RequestBody TriggerFeedingEventDto triggerFeedingEventDto) {
+        return feedingEventService.setFeedingEventAsCompleted(triggerFeedingEventDto);
     }
 
 //    @PostMapping("/feedingevent")

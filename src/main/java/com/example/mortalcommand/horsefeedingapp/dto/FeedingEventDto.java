@@ -5,9 +5,7 @@ import java.time.LocalTime;
 
 public class FeedingEventDto {
 
-    private Long id;
     private String horseGuid;
-//    private FeedingScheduleResponseDto feedingScheduleResponseDto;
     private Long feedingScheduleId;
     private LocalTime feedingStartTime;
     private LocalTime feedingEndTime;
@@ -15,13 +13,6 @@ public class FeedingEventDto {
     private boolean completed;
 
     // Getters and setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getHorseGuid() {
         return horseGuid;
