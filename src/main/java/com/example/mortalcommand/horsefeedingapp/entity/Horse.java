@@ -5,6 +5,9 @@ import org.mapstruct.Mapping;
 
 import java.util.Set;
 
+/**
+ * Entity that represents a horse
+ */
 @Entity
 @Table(name = "horses")
 public class Horse {

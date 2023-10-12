@@ -10,18 +10,18 @@ import com.example.mortalcommand.horsefeedingapp.entity.Horse;
 import com.example.mortalcommand.horsefeedingapp.persistence.FeedingEventRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.FeedingScheduleRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.HorseRepository;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that handles the business logic related to events when horses are fed.
+ */
 @Service
 public class FeedingEventService {
 

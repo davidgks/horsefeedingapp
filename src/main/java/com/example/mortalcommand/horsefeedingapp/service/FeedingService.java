@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that handles the business logic for maintaining feeding preferences of horses
+ * and managing feeding schedules.
+ */
 @Service
 public class FeedingService {
 

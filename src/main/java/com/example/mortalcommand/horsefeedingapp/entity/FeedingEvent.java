@@ -3,8 +3,10 @@ package com.example.mortalcommand.horsefeedingapp.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
+/**
+ * Entity that represents an event of horse feeding
+ */
 @Entity
 @Table(name = "feeding_events")
 public class FeedingEvent {

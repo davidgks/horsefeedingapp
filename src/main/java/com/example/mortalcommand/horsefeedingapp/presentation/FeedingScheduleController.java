@@ -3,9 +3,6 @@ package com.example.mortalcommand.horsefeedingapp.presentation;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingScheduleDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingScheduleResponseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
-import com.example.mortalcommand.horsefeedingapp.entity.FeedingSchedule;
-import com.example.mortalcommand.horsefeedingapp.entity.Horse;
-import com.example.mortalcommand.horsefeedingapp.persistence.FeedingScheduleRepository;
 import com.example.mortalcommand.horsefeedingapp.service.FeedingService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Rest controller for managing all http request related to the feeding schedule
+ */
 @RestController
 public class FeedingScheduleController {
 

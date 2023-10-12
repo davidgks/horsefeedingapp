@@ -6,13 +6,15 @@ import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.Horse;
 import com.example.mortalcommand.horsefeedingapp.persistence.HorseRepository;
 import com.example.mortalcommand.horsefeedingapp.service.HorseService;
-import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Rest controller for managing all http request related to horses
+ */
 @RestController
 public class HorseController {
 

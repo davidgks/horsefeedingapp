@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.util.Set;
 
+/**
+ * Entity that represents different food types
+ */
 @Entity
 @Table(name = "food_types")
 public class FoodType {

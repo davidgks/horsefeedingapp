@@ -2,6 +2,9 @@ package com.example.mortalcommand.horsefeedingapp.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Entity that represents an owner
+ */
 @Entity
 @Table(name = "owners")
 public class Owner {

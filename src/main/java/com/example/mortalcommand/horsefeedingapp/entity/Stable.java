@@ -2,6 +2,9 @@ package com.example.mortalcommand.horsefeedingapp.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Entity that represents a stable
+ */
 @Entity
 @Table(name = "stables")
 public class Stable {

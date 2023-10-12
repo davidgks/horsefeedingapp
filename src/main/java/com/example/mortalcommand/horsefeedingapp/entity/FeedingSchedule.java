@@ -6,6 +6,9 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Set;
 
+/**
+ * Entity that represents feeding schedule items
+ */
 @Entity
 @Table(name = "feeding_schedules")
 public class FeedingSchedule {

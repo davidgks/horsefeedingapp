@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
+/**
+ * Service class that handles the business logic related to horses.
+ */
 @Service
 public class HorseService {
     private final HorseRepository horseRepository;

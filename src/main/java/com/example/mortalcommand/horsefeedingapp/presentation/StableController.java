@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Rest controller for managing all http request related to stables
+ */
 @RestController
 public class StableController {
 
