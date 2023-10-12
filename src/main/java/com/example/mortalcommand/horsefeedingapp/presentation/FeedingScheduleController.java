@@ -2,22 +2,24 @@ package com.example.mortalcommand.horsefeedingapp.presentation;
 
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingScheduleDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingScheduleResponseDto;
+import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.FeedingSchedule;
+import com.example.mortalcommand.horsefeedingapp.entity.Horse;
 import com.example.mortalcommand.horsefeedingapp.persistence.FeedingScheduleRepository;
 import com.example.mortalcommand.horsefeedingapp.service.FeedingService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 public class FeedingScheduleController {
 
-    private final FeedingScheduleRepository feedingScheduleRepository;
     private final FeedingService feedingService;
 
-    public FeedingScheduleController(FeedingScheduleRepository feedingScheduleRepository, FeedingService feedingService) {
-        this.feedingScheduleRepository = feedingScheduleRepository;
+    public FeedingScheduleController(FeedingService feedingService) {
         this.feedingService = feedingService;
     }
 
@@ -41,6 +43,19 @@ public class FeedingScheduleController {
         return feedingService.updateFeedingScheduleById(id, feedingScheduleDto);
     }
 
+    @GetMapping("/eligibleHorses")
+    public ResponseEntity<List<HorseResponseDto>> readAllEligbleHorse(
+            @RequestParam(value = "feedingDateTimeToCheck", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime feedingDateTimeToCheck) {
+        List<HorseResponseDto> allEligbleHorsesResponse = feedingService.getEligibleHorses(feedingDateTimeToCheck);
+        return ResponseEntity.ok(allEligbleHorsesResponse);
+    }
+
+    @GetMapping("/test")
+    public LocalDateTime getTester(
+            @RequestParam(value = "dateTime", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime feedingDateTimeToCheck) {
+        return feedingDateTimeToCheck;
+    }
 
 
 }

@@ -37,6 +37,10 @@ public class Horse {
     @OneToMany(mappedBy = "horse")
     private Set<FeedingSchedule> feedingSchedules;
 
+    @OneToMany(mappedBy = "horse")
+    private Set<FeedingEvent> feedingEvents;
+
+    // Getter and setter methods
     public Long getId() {
         return id;
     }
@@ -91,5 +95,21 @@ public class Horse {
 
     public void setStable(Stable stable) {
         this.stable = stable;
+    }
+
+    public Set<FeedingSchedule> getFeedingSchedules() {
+        return feedingSchedules;
+    }
+
+    public void setFeedingSchedules(Set<FeedingSchedule> feedingSchedules) {
+        this.feedingSchedules = feedingSchedules;
+    }
+
+    public Set<FeedingEvent> getFeedingEvents() {
+        return feedingEvents;
+    }
+
+    public void setFeedingEvents(Set<FeedingEvent> feedingEvents) {
+        this.feedingEvents = feedingEvents;
     }
 }

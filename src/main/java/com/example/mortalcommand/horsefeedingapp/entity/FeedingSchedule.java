@@ -29,6 +29,10 @@ public class FeedingSchedule {
 
     private Long foodQuantityInKg;
 
+    @OneToMany(mappedBy = "feedingSchedule")
+    private Set<FeedingEvent> feedingEvents;
+
+    // Getter and setter methods
     public Long getId() {
         return id;
     }
@@ -75,5 +79,13 @@ public class FeedingSchedule {
 
     public void setFoodQuantityInKg(Long foodQuantityInKg) {
         this.foodQuantityInKg = foodQuantityInKg;
+    }
+
+    public Set<FeedingEvent> getFeedingEvents() {
+        return feedingEvents;
+    }
+
+    public void setFeedingEvents(Set<FeedingEvent> feedingEvents) {
+        this.feedingEvents = feedingEvents;
     }
 }
