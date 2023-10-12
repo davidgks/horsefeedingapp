@@ -49,13 +49,4 @@ public class FeedingScheduleController {
         List<HorseResponseDto> allEligbleHorsesResponse = feedingService.getEligibleHorses(feedingDateTimeToCheck);
         return ResponseEntity.ok(allEligbleHorsesResponse);
     }
-
-    @GetMapping("/test")
-    public LocalDateTime getTester(
-            @RequestParam(value = "dateTime", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime feedingDateTimeToCheck) {
-        return feedingDateTimeToCheck;
-    }
-
-
 }
