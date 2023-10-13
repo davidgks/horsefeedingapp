@@ -1,7 +1,6 @@
 package com.example.mortalcommand.horsefeedingapp.service;
 
 import com.example.mortalcommand.horsefeedingapp.HorseMapper;
-import com.example.mortalcommand.horsefeedingapp.StableMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.Horse;
@@ -10,12 +9,13 @@ import com.example.mortalcommand.horsefeedingapp.entity.Stable;
 import com.example.mortalcommand.horsefeedingapp.persistence.HorseRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.OwnerRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.StableRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Service class that handles the business logic related to horses.
@@ -27,7 +27,6 @@ public class HorseService {
     private final StableRepository stableRepository;
     private final HorseMapper horseMapper;
 
-    @Autowired
     public HorseService(HorseRepository horseRepository, OwnerRepository ownerRepository, StableRepository stableRepository, HorseMapper horseMapper) {
         this.horseRepository = horseRepository;
         this.ownerRepository = ownerRepository;
@@ -35,7 +34,19 @@ public class HorseService {
         this.horseMapper = horseMapper;
     }
 
-    //TODO !!!!!!!!!!!!!
+    public List<HorseResponseDto> readAllHorses() {
+        List<Horse> allHorses = horseRepository.findAll();
+        return horseMapper.horsesToHorseResponseDtos(allHorses);
+    }
+
+    public ResponseEntity<HorseResponseDto> readHorseByGuid(String guid) {
+        Optional<Horse> optionalHorse = horseRepository.findHorseByGuid(guid);
+        if (optionalHorse.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(horseMapper.horseToHorseResponseDto(optionalHorse.get()));
+    }
+
     public HorseResponseDto createHorse(HorseDto horseDto) {
         Optional<Owner> optionalOwner = ownerRepository.findOnwerByOwnerName(horseDto.getOwnerName());
         Optional<Stable> optionalStable = stableRepository.findStableByStableName(horseDto.getStableName());
@@ -60,25 +71,26 @@ public class HorseService {
 
         // Create new horse
         Horse newHorse = new Horse();
-        newHorse.setGuid(horseDto.getGuid());
+        newHorse.setGuid(String.valueOf(UUID.randomUUID())); //necessary for GUID
         newHorse.setOfficialName(horseDto.getOfficialName());
         newHorse.setNickname(horseDto.getNickname());
         newHorse.setBreed(horseDto.getBreed());
         newHorse.setOwner(own);
         newHorse.setStable(stbl);
+
         // store newly created Horse
         horseRepository.save(newHorse);
         return horseMapper.horseToHorseResponseDto(newHorse);
     }
 
-    public HorseResponseDto removeHorseById(Long horseId) {
-        Optional<Horse> optionalHorse = horseRepository.findById(horseId);
+    @Transactional
+    public ResponseEntity<HorseResponseDto> removeHorseByGuid(String guid) {
+        Optional<Horse> optionalHorse = horseRepository.findHorseByGuid(guid);
         if (optionalHorse.isEmpty()) {
-            return new HorseResponseDto();
+            return ResponseEntity.notFound().build();
         }
-        HorseResponseDto horseResponseDto = horseMapper.horseToHorseResponseDto(optionalHorse.get());
-        horseRepository.deleteById(horseId);
-        return horseResponseDto;
+        horseRepository.deleteById(optionalHorse.get().getId());
+        return ResponseEntity.ok(horseMapper.horseToHorseResponseDto(optionalHorse.get()));
     }
 
     public HorseResponseDto updateHorseById(Long id, HorseDto horseDto) {
