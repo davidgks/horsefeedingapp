@@ -26,24 +26,25 @@ public class StableController {
     }
 
     @GetMapping("/stables")
-    public ResponseEntity<List<StableDto>> readStables() {
+    public ResponseEntity<List<StableResponseDto>> readStables() {
         List<Stable> allStables = stableRepository.findAll();
-        List<StableDto> stablesDtos = stableMapper.stablesToStableDtos(allStables);
-        return ResponseEntity.ok(stablesDtos);
+        List<StableResponseDto> stablesResponseDtos = stableMapper.stablesToStableResponseDtos(allStables);
+        return ResponseEntity.ok(stablesResponseDtos);
     }
 
     // TODO
     // Refactor with Dtos
     @GetMapping("/stables/{stableid}")
-    public ResponseEntity readStableById(@PathVariable("stableid") Long id) {
+    public ResponseEntity<StableResponseDto> readStableById(@PathVariable("stableid") Long id) {
         if (id < 0) {
             return ResponseEntity.badRequest().build();
         }
         Optional<Stable> optionalStable = stableRepository.findById(id);
         if (optionalStable.isEmpty()) {
             return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(stableMapper.stableToStableResponseDto(optionalStable.get()));
         }
-        return ResponseEntity.ok(optionalStable.orElse(null));
     }
 
     @PostMapping("/stables")

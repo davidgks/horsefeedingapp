@@ -13,6 +13,7 @@ import java.util.List;
 public interface StableMapper {
 
     List<StableDto> stablesToStableDtos(List<Stable> stables);
+    List<StableResponseDto> stablesToStableResponseDtos(List<Stable> stables);
 
     StableDto stableToStableDto(Stable stable);
 

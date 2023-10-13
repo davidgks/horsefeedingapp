@@ -1,8 +1,19 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
 public class StableResponseDto {
+
+    private Long id;
     private String stableName;
     private String location;
+
+    // Getter and setter methods
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getStableName() {
         return stableName;
