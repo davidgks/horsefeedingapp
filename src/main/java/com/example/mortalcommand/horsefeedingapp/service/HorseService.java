@@ -27,6 +27,13 @@ public class HorseService {
     private final StableRepository stableRepository;
     private final HorseMapper horseMapper;
 
+    /**
+     * Constructor for constructing a Horse service.
+     * @param horseRepository allows accessing horse related data in the database.
+     * @param ownerRepository allows accessing owner related data in the database.
+     * @param stableRepository allows accessing stable related data in the database.
+     * @param horseMapper implements the logic for mapping horse entities to horseDtos, horseResponseDtos and vice versa
+     */
     public HorseService(HorseRepository horseRepository, OwnerRepository ownerRepository, StableRepository stableRepository, HorseMapper horseMapper) {
         this.horseRepository = horseRepository;
         this.ownerRepository = ownerRepository;
@@ -34,11 +41,20 @@ public class HorseService {
         this.horseMapper = horseMapper;
     }
 
+    /**
+     * Reads all horse entities from the database and returns them in a list of HorseResponseDtos
+     * @return a list of HorseResponseDtos
+     */
     public List<HorseResponseDto> readAllHorses() {
         List<Horse> allHorses = horseRepository.findAll();
         return horseMapper.horsesToHorseResponseDtos(allHorses);
     }
 
+    /**
+     * Finds a horse by its GUID in the database and returns it as a HorseResponseDto
+     * @param guid can be provided to the method to retrieve the corresponding horse from the database
+     * @return a ResponseEntity that wraps a HorseResponseDto
+     */
     public ResponseEntity<HorseResponseDto> readHorseByGuid(String guid) {
         Optional<Horse> optionalHorse = horseRepository.findHorseByGuid(guid);
         if (optionalHorse.isEmpty()) {
@@ -47,6 +63,11 @@ public class HorseService {
         return ResponseEntity.ok(horseMapper.horseToHorseResponseDto(optionalHorse.get()));
     }
 
+    /**
+     * Creates a new Horse and saves it in the database.
+     * @param horseDto contains all the information that can be provided to the newly stored horse entity
+     * @return a HorseResponseDto of the newly created horse entity
+     */
     public HorseResponseDto createHorse(HorseDto horseDto) {
         Optional<Owner> optionalOwner = ownerRepository.findOnwerByOwnerName(horseDto.getOwnerName());
         Optional<Stable> optionalStable = stableRepository.findStableByStableName(horseDto.getStableName());
@@ -83,8 +104,13 @@ public class HorseService {
         return horseMapper.horseToHorseResponseDto(newHorse);
     }
 
+    /**
+     * Deletes a horse identified by its id value from the database.
+     * @param id the id value that identifies the horse in the database
+     * @return a HorseResponseDto of the deleted horse entity wrapped in a ResponseEntity
+     */
     @Transactional
-    public ResponseEntity<HorseResponseDto> removeHorseByGuid(Long id) {
+    public ResponseEntity<HorseResponseDto> removeHorseById(Long id) {
         Optional<Horse> optionalHorse = horseRepository.findById(id);
         if (optionalHorse.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -93,6 +119,13 @@ public class HorseService {
         return ResponseEntity.ok(horseMapper.horseToHorseResponseDto(optionalHorse.get()));
     }
 
+    /**
+     * Updates a horse with the data provided in the horseDto which is passed as parameter value to the functioin.
+     * The horse is identified by its id.
+     * @param id identifies the horse in the database
+     * @param horseDto contains the data with which the horse is being updated
+     * @return HorseResponseDto of the updated horse
+     */
     public HorseResponseDto updateHorseById(Long id, HorseDto horseDto) {
         Optional<Horse> optionalHorse = horseRepository.findById(id);
         if (optionalHorse.isEmpty()) {

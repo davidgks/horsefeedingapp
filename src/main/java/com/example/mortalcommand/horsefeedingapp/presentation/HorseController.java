@@ -41,7 +41,7 @@ public class HorseController {
 
     @DeleteMapping("/horse/{horseId}")
     public ResponseEntity<HorseResponseDto> removeHorse(@PathVariable("horseId") Long id) {
-        return horseService.removeHorseByGuid(id);
+        return horseService.removeHorseById(id);
     }
 
     @PutMapping("/horse/{horseGuid}")
