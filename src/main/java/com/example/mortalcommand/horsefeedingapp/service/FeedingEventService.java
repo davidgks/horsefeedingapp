@@ -1,8 +1,10 @@
 package com.example.mortalcommand.horsefeedingapp.service;
 
 import com.example.mortalcommand.horsefeedingapp.FeedingEventMapper;
+import com.example.mortalcommand.horsefeedingapp.HorseMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventResponseDto;
+import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.TriggerFeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.entity.FeedingEvent;
 import com.example.mortalcommand.horsefeedingapp.entity.FeedingSchedule;
@@ -16,8 +18,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class that handles the business logic related to events when horses are fed.
@@ -29,12 +33,14 @@ public class FeedingEventService {
     private final FeedingScheduleRepository feedingScheduleRepository;
     private final HorseRepository horseRepository;
     private final FeedingEventMapper feedingEventMapper;
+    private final HorseMapper horseMapper;
 
-    public FeedingEventService(FeedingEventRepository feedingEventRepository, FeedingScheduleRepository feedingScheduleRepository, HorseRepository horseRepository, FeedingEventMapper feedingEventMapper) {
+    public FeedingEventService(FeedingEventRepository feedingEventRepository, FeedingScheduleRepository feedingScheduleRepository, HorseRepository horseRepository, FeedingEventMapper feedingEventMapper, HorseMapper horseMapper) {
         this.feedingEventRepository = feedingEventRepository;
         this.feedingScheduleRepository = feedingScheduleRepository;
         this.horseRepository = horseRepository;
         this.feedingEventMapper = feedingEventMapper;
+        this.horseMapper = horseMapper;
     }
 
     /**
@@ -69,6 +75,42 @@ public class FeedingEventService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Horse with GUID " + triggerFeedingEventDto.getHorseGuid() + " is not allowed to eat right now!");
     }
 
+    /**
+     * Finds all horses that were not fed for a certain amount of hours.
+     * The amount of hours can be passed as parameter to the method.
+     * @param hours the amount of hours a user can enter to determine the threshold for unfed horses
+     * @return a list of horses that were not fed for a certain amount of hours
+     */
+    public List<HorseResponseDto> findHorsesNotFedForHours(Long hours) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime thresholdTime = currentTime.minusHours(hours);
+
+        List<Horse> unfedHorses = new ArrayList<>();
+        List<Horse> allHorses = horseRepository.findAll();
+
+        for (Horse horse : allHorses) {
+            Set<FeedingEvent> feedingEventsOfHorse = horse.getFeedingEvents();
+            LocalDateTime latestFeedingEvent = LocalDateTime.MIN;
+
+            // find the event when horse was last time fed
+            for (FeedingEvent fe : feedingEventsOfHorse) {
+                LocalDateTime feTimeStamp = fe.getFeedingTime();
+//                if (feTimeStamp == null) {
+//                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("")
+//                }
+                if (feTimeStamp.isAfter(latestFeedingEvent)) {
+                    latestFeedingEvent = feTimeStamp;
+                }
+            }
+            // if horse was last time fed before the threshold, it is considered as unfed
+            if (latestFeedingEvent.isBefore(thresholdTime)) {
+                unfedHorses.add(horse);
+            }
+        }
+        return horseMapper.horsesToHorseResponseDtos(unfedHorses);
+    }
+
+    // TODO: can be deleted
     public void createFeedingEvent(FeedingEventDto feedingEventDto) {
         LocalDateTime dateTimeStamp = LocalDateTime.now();
         LocalTime timeStamp = dateTimeStamp.toLocalTime();

@@ -1,5 +1,7 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
+import java.util.List;
+
 public class HorseResponseDto {
 
     private Long id;
@@ -10,7 +12,9 @@ public class HorseResponseDto {
     private String ownerName;
     private Long stableId;
     private String stableName;
+    private List<FeedingEventResponseDto> feedingEventResponseDtos;
 
+    // Getter and setter methods
     public Long getId() {
         return id;
     }
@@ -73,5 +77,13 @@ public class HorseResponseDto {
 
     public void setStableName(String stableName) {
         this.stableName = stableName;
+    }
+
+    public List<FeedingEventResponseDto> getFeedingEventResponseDtos() {
+        return feedingEventResponseDtos;
+    }
+
+    public void setFeedingEventResponseDtos(List<FeedingEventResponseDto> feedingEventResponseDtos) {
+        this.feedingEventResponseDtos = feedingEventResponseDtos;
     }
 }

@@ -84,8 +84,8 @@ public class HorseService {
     }
 
     @Transactional
-    public ResponseEntity<HorseResponseDto> removeHorseByGuid(String guid) {
-        Optional<Horse> optionalHorse = horseRepository.findHorseByGuid(guid);
+    public ResponseEntity<HorseResponseDto> removeHorseByGuid(Long id) {
+        Optional<Horse> optionalHorse = horseRepository.findById(id);
         if (optionalHorse.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

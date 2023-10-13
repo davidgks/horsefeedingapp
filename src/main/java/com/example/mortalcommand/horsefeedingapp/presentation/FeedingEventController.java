@@ -2,13 +2,11 @@ package com.example.mortalcommand.horsefeedingapp.presentation;
 
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventResponseDto;
+import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.TriggerFeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.service.FeedingEventService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,4 +36,9 @@ public class FeedingEventController {
 //    public ResponseEntity<FeedingEventResponseDto> createFeedingEvent(@RequestBody FeedingEventDto feedingEventDto) {
 //        return feedingEventService.createFeedingEvent(feedingEventDto);
 //    }
+
+    @GetMapping("/unfedhorses/{hours}")
+    public ResponseEntity<List<HorseResponseDto>> findHorsesNotFedForHours(@PathVariable("hours") Long hours) {
+        return ResponseEntity.ok(feedingEventService.findHorsesNotFedForHours(hours));
+    }
 }

@@ -18,38 +18,34 @@ import java.util.List;
 @RestController
 public class HorseController {
 
-    private final HorseRepository horseRepository;
-    private final HorseMapper horseMapper;
     private final HorseService horseService;
 
-    public HorseController(HorseRepository horseRepository, HorseMapper horseMapper, HorseService horseService) {
-        this.horseRepository = horseRepository;
-        this.horseMapper = horseMapper;
+    public HorseController(HorseService horseService) {
         this.horseService = horseService;
     }
 
-    @GetMapping("/horses")
-    public ResponseEntity<List<HorseResponseDto>> readHorses() {
-        List<Horse> allHorses = horseRepository.findAll();
-        List<HorseResponseDto> horseResponseDtos = horseMapper.horsesToHorseResponseDtos(allHorses);
-        return ResponseEntity.ok(horseResponseDtos);
+    @GetMapping("/horse")
+    public ResponseEntity<List<HorseResponseDto>> readAllHorses() {
+        return ResponseEntity.ok(horseService.readAllHorses());
+    }
+
+    @GetMapping("/horse/{horseGuid}")
+    public ResponseEntity<HorseResponseDto> readHorseByGuid(@PathVariable("horseGuid") String guid) {
+        return horseService.readHorseByGuid(guid);
     }
 
     @PostMapping("/horse")
     public ResponseEntity<HorseResponseDto> createHorse(@RequestBody HorseDto horseDto) {
-        HorseResponseDto horseResponseDto = horseService.createHorse(horseDto);
-        return ResponseEntity.ok(horseResponseDto);
+        return ResponseEntity.ok(horseService.createHorse(horseDto));
     }
 
     @DeleteMapping("/horse/{horseId}")
     public ResponseEntity<HorseResponseDto> removeHorse(@PathVariable("horseId") Long id) {
-        HorseResponseDto horseResponseDto = horseService.removeHorseById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(horseResponseDto);
+        return horseService.removeHorseByGuid(id);
     }
 
-    @PutMapping("/horse/{horseId}")
-    public ResponseEntity<HorseResponseDto> updateHorse(@PathVariable("horseId") Long id, @RequestBody HorseDto horseDto) {
-        HorseResponseDto horseResponseDto = horseService.updateHorseById(id, horseDto);
-        return ResponseEntity.ok(horseResponseDto);
+    @PutMapping("/horse/{horseGuid}")
+    public ResponseEntity<HorseResponseDto> updateHorse(@PathVariable("horseGuid") Long id, @RequestBody HorseDto horseDto) {
+        return ResponseEntity.ok(horseService.updateHorseById(id, horseDto));
     }
 }

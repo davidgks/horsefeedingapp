@@ -10,6 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HorsefeedingappApplication {
 
+	/**
+	 * This method starts the application.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(HorsefeedingappApplication.class, args);
 	}

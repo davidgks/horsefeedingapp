@@ -1,21 +1,13 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
 public class HorseDto {
-    private String guid;
     private String officialName;
     private String nickname;
     private String breed;
     private String ownerName;
     private String stableName;
 
-    public String getGuid() {
-        return guid;
-    }
-
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
-
+    // Getter and setter methods
     public String getOfficialName() {
         return officialName;
     }

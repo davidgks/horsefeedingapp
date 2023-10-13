@@ -25,6 +25,8 @@ public interface HorseMapper {
     @Mapping(source = "stableName", target = "stable.stableName")
     Horse horseDtoToHorse(HorseDto horseDto);
 
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "guid", target = "guid")
     @Mapping(source = "owner.id", target = "ownerId")
     @Mapping(source = "owner.ownerName", target = "ownerName")
     @Mapping(source = "stable.id", target = "stableId")
