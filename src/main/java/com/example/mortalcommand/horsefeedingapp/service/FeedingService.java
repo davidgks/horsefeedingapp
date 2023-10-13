@@ -136,7 +136,7 @@ public class FeedingService {
 
     /**
      * Finds all horses that are eligible to being fed for a certain time.
-     * @param feedingDateTimeToCheck the feeding time tha is being check to determine whether a horse is eligible to eat
+     * @param feedingDateTimeToCheck the feeding time that is being checked to determine whether a horse is eligible to eat
      * @return a list of all horses that are eligible to eat.
      */
     public List<HorseResponseDto> getEligibleHorses(LocalDateTime feedingDateTimeToCheck) {
