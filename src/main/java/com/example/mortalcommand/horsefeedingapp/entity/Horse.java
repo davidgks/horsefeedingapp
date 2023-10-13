@@ -17,7 +17,6 @@ public class Horse {
     @Column(name = "idhorse")
     private Long id;
 
-//    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "guid")
     private String guid;
 
