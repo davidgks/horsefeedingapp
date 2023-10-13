@@ -3,11 +3,9 @@ package com.example.mortalcommand.horsefeedingapp;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.Horse;
-import com.example.mortalcommand.horsefeedingapp.entity.Owner;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
 
 import java.util.List;
 
