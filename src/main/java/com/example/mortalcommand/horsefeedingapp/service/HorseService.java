@@ -120,7 +120,7 @@ public class HorseService {
     }
 
     /**
-     * Updates a horse with the data provided in the horseDto which is passed as parameter value to the functioin.
+     * Updates a horse with the data provided in the horseDto which is passed as parameter value to the function.
      * The horse is identified by its id.
      * @param id identifies the horse in the database
      * @param horseDto contains the data with which the horse is being updated
