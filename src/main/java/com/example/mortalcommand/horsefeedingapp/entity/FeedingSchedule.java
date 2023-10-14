@@ -37,6 +37,7 @@ public class FeedingSchedule {
     private Set<FeedingEvent> feedingEvents;
 
     // Getter and setter methods
+
     public Long getId() {
         return id;
     }

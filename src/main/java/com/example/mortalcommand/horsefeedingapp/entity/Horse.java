@@ -43,6 +43,7 @@ public class Horse {
     private Set<FeedingEvent> feedingEvents;
 
     // Getter and setter methods
+
     public Long getId() {
         return id;
     }

@@ -21,6 +21,8 @@ public class FoodType {
     @OneToMany(mappedBy = "foodType")
     private Set<FeedingSchedule> feedingScheduleSet;
 
+    // Getter and setter methods
+
     public Long getId() {
         return id;
     }

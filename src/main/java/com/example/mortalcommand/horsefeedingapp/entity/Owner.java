@@ -16,6 +16,8 @@ public class Owner {
     private String ownerName;
     private String email;
 
+    // Getter and setter methods
+
     public Long getId() {
         return Id;
     }

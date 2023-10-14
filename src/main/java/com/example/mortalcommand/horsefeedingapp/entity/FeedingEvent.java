@@ -29,6 +29,7 @@ public class FeedingEvent {
     private boolean completed;
 
     // Getter and setter methods
+
     public Long getId() {
         return id;
     }

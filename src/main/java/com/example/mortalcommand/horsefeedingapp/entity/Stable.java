@@ -18,6 +18,8 @@ public class Stable {
 
     private String location;
 
+    // Getter and setter methods
+
     public Long getId() {
         return id;
     }
