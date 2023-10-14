@@ -1,6 +1,6 @@
 package com.example.mortalcommand.horsefeedingapp.service;
 
-import com.example.mortalcommand.horsefeedingapp.HorseMapper;
+import com.example.mortalcommand.horsefeedingapp.mapper.HorseMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.Horse;

@@ -1,10 +1,9 @@
-package com.example.mortalcommand.horsefeedingapp;
+package com.example.mortalcommand.horsefeedingapp.mapper;
 
 import com.example.mortalcommand.horsefeedingapp.dto.StableDto;
 import com.example.mortalcommand.horsefeedingapp.dto.StableResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.Stable;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;

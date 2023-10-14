@@ -3,6 +3,7 @@ package com.example.mortalcommand.horsefeedingapp.entity;
 import jakarta.persistence.*;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
@@ -26,9 +27,9 @@ public class FeedingSchedule {
     @JoinColumn(name = "foodtype_id")
     private FoodType foodType;
 
-    private LocalTime feedingStartTime;
+    private LocalDateTime feedingStartTime;
 
-    private LocalTime feedingEndTime;
+    private LocalDateTime feedingEndTime;
 
     private Long foodQuantityInKg;
 
@@ -60,19 +61,19 @@ public class FeedingSchedule {
         this.foodType = foodType;
     }
 
-    public LocalTime getFeedingStartTime() {
+    public LocalDateTime getFeedingStartTime() {
         return feedingStartTime;
     }
 
-    public void setFeedingStartTime(LocalTime feedingStartTime) {
+    public void setFeedingStartTime(LocalDateTime feedingStartTime) {
         this.feedingStartTime = feedingStartTime;
     }
 
-    public LocalTime getFeedingEndTime() {
+    public LocalDateTime getFeedingEndTime() {
         return feedingEndTime;
     }
 
-    public void setFeedingEndTime(LocalTime feedingEndTime) {
+    public void setFeedingEndTime(LocalDateTime feedingEndTime) {
         this.feedingEndTime = feedingEndTime;
     }
 

@@ -1,5 +1,6 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class FeedingScheduleResponseDto {
@@ -7,8 +8,8 @@ public class FeedingScheduleResponseDto {
     private Long id;
     private String horseGuid;
     private String foodTypeName;
-    private LocalTime feedingStartTime;
-    private LocalTime feedingEndTime;
+    private LocalDateTime feedingStartTime;
+    private LocalDateTime feedingEndTime;
     private Long foodQuantityInKg;
 
     // Getters and Setters
@@ -36,19 +37,19 @@ public class FeedingScheduleResponseDto {
         this.foodTypeName = foodTypeName;
     }
 
-    public LocalTime getFeedingStartTime() {
+    public LocalDateTime getFeedingStartTime() {
         return feedingStartTime;
     }
 
-    public void setFeedingStartTime(LocalTime feedingStartTime) {
+    public void setFeedingStartTime(LocalDateTime feedingStartTime) {
         this.feedingStartTime = feedingStartTime;
     }
 
-    public LocalTime getFeedingEndTime() {
+    public LocalDateTime getFeedingEndTime() {
         return feedingEndTime;
     }
 
-    public void setFeedingEndTime(LocalTime feedingEndTime) {
+    public void setFeedingEndTime(LocalDateTime feedingEndTime) {
         this.feedingEndTime = feedingEndTime;
     }
 

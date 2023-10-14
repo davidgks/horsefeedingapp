@@ -1,4 +1,4 @@
-package com.example.mortalcommand.horsefeedingapp;
+package com.example.mortalcommand.horsefeedingapp.mapper;
 
 import com.example.mortalcommand.horsefeedingapp.dto.*;
 import com.example.mortalcommand.horsefeedingapp.entity.FeedingEvent;

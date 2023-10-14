@@ -7,13 +7,12 @@ public class FeedingEventDto {
 
     private String horseGuid;
     private Long feedingScheduleId;
-    private LocalTime feedingStartTime;
-    private LocalTime feedingEndTime;
+    private LocalDateTime feedingStartTime;
+    private LocalDateTime feedingEndTime;
     private LocalDateTime feedingTime;
     private boolean completed;
 
     // Getters and setters
-
     public String getHorseGuid() {
         return horseGuid;
     }
@@ -30,19 +29,19 @@ public class FeedingEventDto {
         this.feedingScheduleId = feedingScheduleId;
     }
 
-    public LocalTime getFeedingStartTime() {
+    public LocalDateTime getFeedingStartTime() {
         return feedingStartTime;
     }
 
-    public void setFeedingStartTime(LocalTime feedingStartTime) {
+    public void setFeedingStartTime(LocalDateTime feedingStartTime) {
         this.feedingStartTime = feedingStartTime;
     }
 
-    public LocalTime getFeedingEndTime() {
+    public LocalDateTime getFeedingEndTime() {
         return feedingEndTime;
     }
 
-    public void setFeedingEndTime(LocalTime feedingEndTime) {
+    public void setFeedingEndTime(LocalDateTime feedingEndTime) {
         this.feedingEndTime = feedingEndTime;
     }
 

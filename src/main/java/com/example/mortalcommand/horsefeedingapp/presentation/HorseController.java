@@ -1,12 +1,8 @@
 package com.example.mortalcommand.horsefeedingapp.presentation;
 
-import com.example.mortalcommand.horsefeedingapp.HorseMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
-import com.example.mortalcommand.horsefeedingapp.entity.Horse;
-import com.example.mortalcommand.horsefeedingapp.persistence.HorseRepository;
 import com.example.mortalcommand.horsefeedingapp.service.HorseService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -18,6 +18,10 @@ public class FeedingEventController {
 
     private final FeedingEventService feedingEventService;
 
+    /**
+     * Constructor for constructing the feeding event controller
+     * @param feedingEventService contains the business logic for dealing with feeding event entities
+     */
     public FeedingEventController(FeedingEventService feedingEventService) {
         this.feedingEventService = feedingEventService;
     }
@@ -27,9 +31,13 @@ public class FeedingEventController {
         return feedingEventService.readAllFeedingEvents();
     }
 
-    @PostMapping("/feedingEvent")
-    public ResponseEntity<?> setFeedingEventAsCompleted(@RequestBody TriggerFeedingEventDto triggerFeedingEventDto) {
-        return feedingEventService.setFeedingEventAsCompleted(triggerFeedingEventDto);
+//    @PostMapping("/feedingevent")
+//    public ResponseEntity<FeedingEventResponseDto> setFeedingEventAsCompleted(@RequestBody TriggerFeedingEventDto triggerFeedingEventDto) {
+//        return feedingEventService.setFeedingEventAsCompleted(triggerFeedingEventDto);
+//    }
+    @PostMapping("/feedingevent")
+    public ResponseEntity<FeedingEventResponseDto> setFeedingEventAsCompleted(@RequestParam(value = "feedingDateTimeToCheck") String horseGuid) {
+        return feedingEventService.setFeedingEventAsCompleted(horseGuid);
     }
 
 //    @PostMapping("/feedingevent")

@@ -1,7 +1,7 @@
 package com.example.mortalcommand.horsefeedingapp.service;
 
-import com.example.mortalcommand.horsefeedingapp.FeedingEventMapper;
-import com.example.mortalcommand.horsefeedingapp.HorseMapper;
+import com.example.mortalcommand.horsefeedingapp.mapper.FeedingEventMapper;
+import com.example.mortalcommand.horsefeedingapp.mapper.HorseMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventResponseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
@@ -12,7 +12,6 @@ import com.example.mortalcommand.horsefeedingapp.entity.Horse;
 import com.example.mortalcommand.horsefeedingapp.persistence.FeedingEventRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.FeedingScheduleRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.HorseRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +44,7 @@ public class FeedingEventService {
 
     /**
      * Gets a list of all the feeding events from the database
+     * @return a list of all feeding events as FeedingEventResponseDtos wrapped in a ResponseEntity
      */
     public ResponseEntity<List<FeedingEventResponseDto>> readAllFeedingEvents() {
         List<FeedingEvent> allFeedingEvents = feedingEventRepository.findAll();
@@ -54,25 +54,28 @@ public class FeedingEventService {
     /**
      * Creates a new feeding event object and sets the feeding event to
      * completed when a horse eligible to eat appears.
-     * @param triggerFeedingEventDto
-     * @return
+     * @param horseGuid the GUID of the horse's RFID chip that appears to eat
+     * @return either a ResponseEntity with status code 200 and a FeedingEventResponseDto in the ResponseEntity body or a ResponseEntity with status code
      */
-    public ResponseEntity<?> setFeedingEventAsCompleted(TriggerFeedingEventDto triggerFeedingEventDto) {
-        LocalTime timeToCheck = triggerFeedingEventDto.getDateTimeStamp().toLocalTime();
-        Optional<Horse> optionalHorse = horseRepository.findHorseByGuid(triggerFeedingEventDto.getHorseGuid());
+    public ResponseEntity<FeedingEventResponseDto> setFeedingEventAsCompleted(String horseGuid) {
+        LocalDateTime dateTimeStamp = LocalDateTime.now();
+
+        Optional<Horse> optionalHorse = horseRepository.findHorseByGuid(horseGuid);
         List<FeedingSchedule> allFeedingSchedules = feedingScheduleRepository.findAll();
 
+        // Check if horse is allowed to eat
         for (FeedingSchedule fs : allFeedingSchedules) {
-            if (fs.getFeedingStartTime().isBefore(timeToCheck) && fs.getFeedingEndTime().isAfter(timeToCheck)) {
+            if (fs.getFeedingStartTime().isBefore(dateTimeStamp) && fs.getFeedingEndTime().isAfter(dateTimeStamp)) {
+                // Create new feeding event
                 FeedingEvent feedingEvent = new FeedingEvent();
                 feedingEvent.setCompleted(true);
                 feedingEvent.setHorse(optionalHorse.get());
-                feedingEvent.setFeedingTime(triggerFeedingEventDto.getDateTimeStamp());
+                feedingEvent.setFeedingTime(dateTimeStamp);
                 feedingEventRepository.save(feedingEvent);
                 return ResponseEntity.ok(feedingEventMapper.feedingEventToFeedingEventResponseDto(feedingEvent));
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Horse with GUID " + triggerFeedingEventDto.getHorseGuid() + " is not allowed to eat right now!");
+        return ResponseEntity.badRequest().build();
     }
 
     /**
@@ -111,21 +114,21 @@ public class FeedingEventService {
     }
 
     // TODO: can be deleted
-    public void createFeedingEvent(FeedingEventDto feedingEventDto) {
-        LocalDateTime dateTimeStamp = LocalDateTime.now();
-        LocalTime timeStamp = dateTimeStamp.toLocalTime();
-
-        LocalTime feedingStartTime = feedingEventDto.getFeedingStartTime();
-        LocalTime feedingEndTime = feedingEventDto.getFeedingEndTime();
-
-        FeedingEvent newFeedingEvent = new FeedingEvent();
-
-        if (timeStamp.isAfter(feedingStartTime) && timeStamp.isBefore(feedingEndTime)) {
-            newFeedingEvent.setFeedingTime(dateTimeStamp);
-            newFeedingEvent.setCompleted(true);
-        } else {
-            newFeedingEvent.setFeedingTime(null);
-            newFeedingEvent.setCompleted(false);
-        }
-    }
+//    public void createFeedingEvent(FeedingEventDto feedingEventDto) {
+//        LocalDateTime dateTimeStamp = LocalDateTime.now();
+//        LocalTime timeStamp = dateTimeStamp.toLocalTime();
+//
+//        LocalTime feedingStartTime = feedingEventDto.getFeedingStartTime();
+//        LocalTime feedingEndTime = feedingEventDto.getFeedingEndTime();
+//
+//        FeedingEvent newFeedingEvent = new FeedingEvent();
+//
+//        if (timeStamp.isAfter(feedingStartTime) && timeStamp.isBefore(feedingEndTime)) {
+//            newFeedingEvent.setFeedingTime(dateTimeStamp);
+//            newFeedingEvent.setCompleted(true);
+//        } else {
+//            newFeedingEvent.setFeedingTime(null);
+//            newFeedingEvent.setCompleted(false);
+//        }
+//    }
 }

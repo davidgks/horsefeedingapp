@@ -1,7 +1,7 @@
 package com.example.mortalcommand.horsefeedingapp.service;
 
-import com.example.mortalcommand.horsefeedingapp.FeedingScheduleMapper;
-import com.example.mortalcommand.horsefeedingapp.HorseMapper;
+import com.example.mortalcommand.horsefeedingapp.mapper.FeedingScheduleMapper;
+import com.example.mortalcommand.horsefeedingapp.mapper.HorseMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingScheduleDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingScheduleResponseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
@@ -9,15 +9,11 @@ import com.example.mortalcommand.horsefeedingapp.entity.*;
 import com.example.mortalcommand.horsefeedingapp.persistence.FeedingScheduleRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.FoodTypeRepository;
 import com.example.mortalcommand.horsefeedingapp.persistence.HorseRepository;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -145,7 +141,7 @@ public class FeedingService {
 
         List<FeedingSchedule> allFeedingSchedules = feedingScheduleRepository.findAll();
         for (FeedingSchedule fs : allFeedingSchedules) {
-            if (fs.getFeedingStartTime().isBefore(feedingTimeToCheck) && fs.getFeedingEndTime().isAfter(feedingTimeToCheck)) {
+            if (fs.getFeedingStartTime().isBefore(feedingDateTimeToCheck) && fs.getFeedingEndTime().isAfter(feedingDateTimeToCheck)) {
                 Horse eligibleHorse = fs.getHorse();
                 allEligibleHorses.add(eligibleHorse);
             }

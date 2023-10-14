@@ -1,6 +1,6 @@
 package com.example.mortalcommand.horsefeedingapp.presentation;
 
-import com.example.mortalcommand.horsefeedingapp.StableMapper;
+import com.example.mortalcommand.horsefeedingapp.mapper.StableMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.StableDto;
 import com.example.mortalcommand.horsefeedingapp.dto.StableResponseDto;
 import com.example.mortalcommand.horsefeedingapp.entity.Stable;
