@@ -67,9 +67,10 @@ public class FeedingService {
 
         Horse hrs;
         if (optionalHorse.isEmpty()) {
-            hrs = new Horse();
-            hrs.setGuid(feedingScheduleDto.getHorseGuid());
-            horseRepository.save(hrs);
+//            hrs = new Horse();
+//            hrs.setGuid(feedingScheduleDto.getHorseGuid());
+//            horseRepository.save(hrs);
+            return ResponseEntity.notFound().build();
         } else {
             hrs = optionalHorse.get();
         }
@@ -137,7 +138,6 @@ public class FeedingService {
      */
     public List<HorseResponseDto> getEligibleHorses(LocalDateTime feedingDateTimeToCheck) {
         List<Horse> allEligibleHorses = new ArrayList<>();
-        LocalTime feedingTimeToCheck = feedingDateTimeToCheck.toLocalTime();
 
         List<FeedingSchedule> allFeedingSchedules = feedingScheduleRepository.findAll();
         for (FeedingSchedule fs : allFeedingSchedules) {

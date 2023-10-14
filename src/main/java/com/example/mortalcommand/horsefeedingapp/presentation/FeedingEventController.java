@@ -36,14 +36,10 @@ public class FeedingEventController {
 //        return feedingEventService.setFeedingEventAsCompleted(triggerFeedingEventDto);
 //    }
     @PostMapping("/feedingevent")
-    public ResponseEntity<FeedingEventResponseDto> setFeedingEventAsCompleted(@RequestParam(value = "feedingDateTimeToCheck") String horseGuid) {
+    public ResponseEntity<FeedingEventResponseDto> setFeedingEventAsCompleted(@RequestParam(value = "horseGuid") String horseGuid) {
         return feedingEventService.setFeedingEventAsCompleted(horseGuid);
     }
 
-//    @PostMapping("/feedingevent")
-//    public ResponseEntity<FeedingEventResponseDto> createFeedingEvent(@RequestBody FeedingEventDto feedingEventDto) {
-//        return feedingEventService.createFeedingEvent(feedingEventDto);
-//    }
 
     @GetMapping("/unfedhorses/{hours}")
     public ResponseEntity<List<HorseResponseDto>> findHorsesNotFedForHours(@PathVariable("hours") Long hours) {

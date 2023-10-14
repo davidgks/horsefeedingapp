@@ -65,15 +65,21 @@ public class FeedingEventService {
 
         // Check if horse is allowed to eat
         for (FeedingSchedule fs : allFeedingSchedules) {
-            if (fs.getFeedingStartTime().isBefore(dateTimeStamp) && fs.getFeedingEndTime().isAfter(dateTimeStamp)) {
-                // Create new feeding event
-                FeedingEvent feedingEvent = new FeedingEvent();
-                feedingEvent.setCompleted(true);
-                feedingEvent.setHorse(optionalHorse.get());
-                feedingEvent.setFeedingTime(dateTimeStamp);
-                feedingEventRepository.save(feedingEvent);
-                return ResponseEntity.ok(feedingEventMapper.feedingEventToFeedingEventResponseDto(feedingEvent));
+            // Check if feeding schedule applies to horse being in request
+            if (fs.getHorse() == optionalHorse.get()) {
+                // Check if dateTimeStamp lies in time range of feeding schedule
+                if (fs.getFeedingStartTime().isBefore(dateTimeStamp) && fs.getFeedingEndTime().isAfter(dateTimeStamp)) {
+                    // Create new feeding event
+                    FeedingEvent feedingEvent = new FeedingEvent();
+                    feedingEvent.setCompleted(true);
+                    feedingEvent.setHorse(optionalHorse.get());
+                    feedingEvent.setFeedingTime(dateTimeStamp);
+                    feedingEvent.setFeedingSchedule(fs);
+                    feedingEventRepository.save(feedingEvent);
+                    return ResponseEntity.ok(feedingEventMapper.feedingEventToFeedingEventResponseDto(feedingEvent));
+                }
             }
+
         }
         return ResponseEntity.badRequest().build();
     }

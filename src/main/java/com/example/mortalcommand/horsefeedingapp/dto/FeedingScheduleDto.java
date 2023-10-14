@@ -5,7 +5,6 @@ import java.time.LocalTime;
 
 public class FeedingScheduleDto {
 
-    private Long id;
     private String horseGuid;
     private String foodTypeName;
     private LocalDateTime FeedingStartTime;
@@ -13,13 +12,6 @@ public class FeedingScheduleDto {
     private Long FoodQuantityInKg;
 
     // Getter and setter methods
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getHorseGuid() {
         return horseGuid;
