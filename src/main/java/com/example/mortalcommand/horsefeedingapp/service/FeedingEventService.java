@@ -2,10 +2,8 @@ package com.example.mortalcommand.horsefeedingapp.service;
 
 import com.example.mortalcommand.horsefeedingapp.mapper.FeedingEventMapper;
 import com.example.mortalcommand.horsefeedingapp.mapper.HorseMapper;
-import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventResponseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
-import com.example.mortalcommand.horsefeedingapp.dto.TriggerFeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.entity.FeedingEvent;
 import com.example.mortalcommand.horsefeedingapp.entity.FeedingSchedule;
 import com.example.mortalcommand.horsefeedingapp.entity.Horse;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -99,42 +96,24 @@ public class FeedingEventService {
 
         for (Horse horse : allHorses) {
             Set<FeedingEvent> feedingEventsOfHorse = horse.getFeedingEvents();
+//            if (feedingEventsOfHorse.isEmpty()) {
+//                continue;
+//            }
             LocalDateTime latestFeedingEvent = LocalDateTime.MIN;
 
             // find the event when horse was last time fed
             for (FeedingEvent fe : feedingEventsOfHorse) {
                 LocalDateTime feTimeStamp = fe.getFeedingTime();
-//                if (feTimeStamp == null) {
-//                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("")
-//                }
+
                 if (feTimeStamp.isAfter(latestFeedingEvent)) {
                     latestFeedingEvent = feTimeStamp;
                 }
             }
-            // if horse was last time fed before the threshold, it is considered as unfed
             if (latestFeedingEvent.isBefore(thresholdTime)) {
                 unfedHorses.add(horse);
             }
         }
-        return horseMapper.horsesToHorseResponseDtos(unfedHorses);
+        List<HorseResponseDto> result = horseMapper.horsesToHorseResponseDtos(unfedHorses);
+        return result;
     }
-
-    // TODO: can be deleted
-//    public void createFeedingEvent(FeedingEventDto feedingEventDto) {
-//        LocalDateTime dateTimeStamp = LocalDateTime.now();
-//        LocalTime timeStamp = dateTimeStamp.toLocalTime();
-//
-//        LocalTime feedingStartTime = feedingEventDto.getFeedingStartTime();
-//        LocalTime feedingEndTime = feedingEventDto.getFeedingEndTime();
-//
-//        FeedingEvent newFeedingEvent = new FeedingEvent();
-//
-//        if (timeStamp.isAfter(feedingStartTime) && timeStamp.isBefore(feedingEndTime)) {
-//            newFeedingEvent.setFeedingTime(dateTimeStamp);
-//            newFeedingEvent.setCompleted(true);
-//        } else {
-//            newFeedingEvent.setFeedingTime(null);
-//            newFeedingEvent.setCompleted(false);
-//        }
-//    }
 }

@@ -30,6 +30,7 @@ public interface HorseMapper {
     @Mapping(source = "stable.id", target = "stableId")
     @Mapping(source = "stable.stableName", target = "stableName")
     @Mapping(source = "feedingEvents", target = "feedingEventResponseDtos")
+
     HorseResponseDto horseToHorseResponseDto(Horse horse);
 
     @Mapping(source = "ownerName", target = "owner.ownerName")

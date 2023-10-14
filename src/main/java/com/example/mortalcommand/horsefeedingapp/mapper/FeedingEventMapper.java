@@ -23,7 +23,6 @@ public interface FeedingEventMapper {
     @Mapping(source = "feedingSchedule.feedingEndTime", target = "feedingEndTime")
     FeedingEventResponseDto feedingEventToFeedingEventResponseDto(FeedingEvent feedingEvent);
 
-//    @Mapping(source = "", target = "")
-//    FeedingEvent feedingEventDtoToFeedingEvent(TriggerFeedingEventDto triggerFeedingEventDto);
+
 
 }

@@ -7,6 +7,7 @@ public class StableResponseDto {
     private String location;
 
     // Getter and setter methods
+
     public Long getId() {
         return id;
     }

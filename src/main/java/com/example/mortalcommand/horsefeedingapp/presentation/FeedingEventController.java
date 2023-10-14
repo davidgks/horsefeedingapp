@@ -1,9 +1,7 @@
 package com.example.mortalcommand.horsefeedingapp.presentation;
 
-import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingEventResponseDto;
 import com.example.mortalcommand.horsefeedingapp.dto.HorseResponseDto;
-import com.example.mortalcommand.horsefeedingapp.dto.TriggerFeedingEventDto;
 import com.example.mortalcommand.horsefeedingapp.service.FeedingEventService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

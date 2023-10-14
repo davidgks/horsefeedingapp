@@ -1,7 +1,6 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class FeedingScheduleResponseDto {
 

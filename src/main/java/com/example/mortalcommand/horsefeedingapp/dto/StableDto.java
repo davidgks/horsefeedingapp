@@ -6,6 +6,8 @@ public class StableDto {
     private String stableName;
     private String location;
 
+    // Getter and setter methods
+
     public Long getId() {
         return id;
     }
