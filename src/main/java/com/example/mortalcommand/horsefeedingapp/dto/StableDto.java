@@ -1,5 +1,9 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
+/**
+ * Dto that is provided as input to methods related to the http services.
+ * It contains information regarding stables that are entered by the client.
+ */
 public class StableDto {
 
     private Long id;

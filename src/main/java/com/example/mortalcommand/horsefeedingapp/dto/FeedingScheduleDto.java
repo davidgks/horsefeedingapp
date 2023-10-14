@@ -1,8 +1,11 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
+/**
+ * Dto that is provided as input to methods related to the http services.
+ * It contains information regarding feeding schedules that are entered by the client.
+ */
 public class FeedingScheduleDto {
 
     private String horseGuid;

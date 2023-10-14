@@ -2,6 +2,10 @@ package com.example.mortalcommand.horsefeedingapp.dto;
 
 import java.util.List;
 
+/**
+ * Dto that is returned as response when using methods related to the http services.
+ * It contains information regarding horses that are visible to the client.
+ */
 public class HorseResponseDto {
 
     private Long id;

@@ -1,5 +1,9 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
+/**
+ * Dto that is returned as response when using methods related to the http services.
+ * It contains information regarding stables that are visible to the client.
+ */
 public class StableResponseDto {
 
     private Long id;

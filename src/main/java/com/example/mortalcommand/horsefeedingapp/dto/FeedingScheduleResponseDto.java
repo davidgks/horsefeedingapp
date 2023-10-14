@@ -2,6 +2,10 @@ package com.example.mortalcommand.horsefeedingapp.dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * Dto that is returned as response when using methods related to the http services.
+ * It contains information regarding feeding schedules that are visible to the client.
+ */
 public class FeedingScheduleResponseDto {
 
     private Long id;
