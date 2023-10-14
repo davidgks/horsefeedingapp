@@ -67,9 +67,6 @@ public class FeedingService {
 
         Horse hrs;
         if (optionalHorse.isEmpty()) {
-//            hrs = new Horse();
-//            hrs.setGuid(feedingScheduleDto.getHorseGuid());
-//            horseRepository.save(hrs);
             return ResponseEntity.notFound().build();
         } else {
             hrs = optionalHorse.get();
@@ -92,6 +89,7 @@ public class FeedingService {
         newFeedingSchedule.setFeedingEndTime(feedingScheduleDto.getFeedingEndTime());
         newFeedingSchedule.setFoodQuantityInKg(feedingScheduleDto.getFoodQuantityInKg());
         feedingScheduleRepository.save(newFeedingSchedule);
+
         return ResponseEntity.ok(feedingScheduleMapper.fsToFsResponseDto(newFeedingSchedule));
     }
 
