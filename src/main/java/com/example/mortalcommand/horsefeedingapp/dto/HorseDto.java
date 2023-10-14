@@ -12,6 +12,7 @@ public class HorseDto {
     private String stableName;
 
     // Getter and setter methods
+
     public String getOfficialName() {
         return officialName;
     }

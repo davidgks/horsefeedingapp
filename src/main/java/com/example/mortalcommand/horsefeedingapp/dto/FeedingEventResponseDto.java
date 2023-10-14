@@ -1,7 +1,6 @@
 package com.example.mortalcommand.horsefeedingapp.dto;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  * Dto that is returned as response when using methods related to the http services.
@@ -17,6 +16,7 @@ public class FeedingEventResponseDto {
     private boolean completed;
 
     // Getter and Setter methods
+
     public Long getId() {
         return id;
     }

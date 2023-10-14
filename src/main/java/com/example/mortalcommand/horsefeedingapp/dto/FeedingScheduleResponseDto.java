@@ -15,7 +15,8 @@ public class FeedingScheduleResponseDto {
     private LocalDateTime feedingEndTime;
     private Long foodQuantityInKg;
 
-    // Getters and Setters
+    // Getters and setter methods
+
     public Long getId() {
         return id;
     }
