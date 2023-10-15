@@ -36,10 +36,10 @@ public class Horse {
     @JoinColumn(name = "stable_id", nullable = false)
     private Stable stable;
 
-    @OneToMany(mappedBy = "horse")
+    @OneToMany(mappedBy = "horse", cascade = CascadeType.ALL)
     private Set<FeedingSchedule> feedingSchedules;
 
-    @OneToMany(mappedBy = "horse")
+    @OneToMany(mappedBy = "horse", cascade = CascadeType.ALL)
     private Set<FeedingEvent> feedingEvents;
 
     // Getter and setter methods

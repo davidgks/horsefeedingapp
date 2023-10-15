@@ -33,7 +33,7 @@ public class FeedingSchedule {
 
     private Long foodQuantityInKg;
 
-    @OneToMany(mappedBy = "feedingSchedule")
+    @OneToMany(mappedBy = "feedingSchedule", cascade = CascadeType.ALL)
     private Set<FeedingEvent> feedingEvents;
 
     // Getter and setter methods

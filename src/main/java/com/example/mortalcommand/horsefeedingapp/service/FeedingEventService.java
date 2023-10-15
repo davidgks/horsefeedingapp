@@ -96,9 +96,9 @@ public class FeedingEventService {
 
         for (Horse horse : allHorses) {
             Set<FeedingEvent> feedingEventsOfHorse = horse.getFeedingEvents();
-//            if (feedingEventsOfHorse.isEmpty()) {
-//                continue;
-//            }
+            if (feedingEventsOfHorse.isEmpty()) {
+                continue;
+            }
             LocalDateTime latestFeedingEvent = LocalDateTime.MIN;
 
             // find the event when horse was last time fed
