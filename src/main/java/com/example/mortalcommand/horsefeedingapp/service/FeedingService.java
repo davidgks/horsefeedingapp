@@ -1,5 +1,6 @@
 package com.example.mortalcommand.horsefeedingapp.service;
 
+import com.example.mortalcommand.horsefeedingapp.exception.FeedingScheduleValidationException;
 import com.example.mortalcommand.horsefeedingapp.mapper.FeedingScheduleMapper;
 import com.example.mortalcommand.horsefeedingapp.mapper.HorseMapper;
 import com.example.mortalcommand.horsefeedingapp.dto.FeedingScheduleDto;
@@ -17,6 +18,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class that handles the business logic for maintaining feeding preferences of horses
@@ -64,6 +66,13 @@ public class FeedingService {
     public ResponseEntity<FeedingScheduleResponseDto> createFeedingSchedule(FeedingScheduleDto feedingScheduleDto) {
         Optional<Horse> optionalHorse = horseRepository.findHorseByGuid(feedingScheduleDto.getHorseGuid());
         Optional<FoodType> optionalFoodType = foodTypeRepository.findFoodTypeByFoodName(feedingScheduleDto.getFoodTypeName());
+
+        try {
+            validateFeedingSchedule(feedingScheduleDto, optionalHorse.get());
+        } catch (FeedingScheduleValidationException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
 
         Horse hrs;
         if (optionalHorse.isEmpty()) {
@@ -144,5 +153,30 @@ public class FeedingService {
                 allEligibleHorses.add(eligibleHorse);
             }
         } return horseMapper.horsesToHorseResponseDtos(allEligibleHorses);
+    }
+
+    /**
+     * This method checks and verifies if feeding schedules overlap
+     * and if the number of feeding schedule per horse exceeds the limit of 5
+     * @param newSchedule the feeding schedule that needs to get validated
+     * @param horse the horse in question
+     */
+    public void validateFeedingSchedule(FeedingScheduleDto newSchedule, Horse horse) {
+        Set<FeedingSchedule> existingSchedules = horse.getFeedingSchedules();
+
+        int totalSchedules = existingSchedules.size();
+
+        // Check if the total number of schedules is within the limit (1-5)
+        if (totalSchedules > 5) {
+            throw new FeedingScheduleValidationException("Horse cannot have more than 5 feeding schedules.");
+        }
+
+        // Check for overlapping feeding ranges
+        for (FeedingSchedule existingSchedule : existingSchedules) {
+            if (newSchedule.getFeedingStartTime().isBefore(existingSchedule.getFeedingEndTime())
+                && newSchedule.getFeedingEndTime().isAfter(existingSchedule.getFeedingStartTime())) {
+                throw new FeedingScheduleValidationException("Feeding ranges cannot overlap.");
+            }
+        }
     }
 }
