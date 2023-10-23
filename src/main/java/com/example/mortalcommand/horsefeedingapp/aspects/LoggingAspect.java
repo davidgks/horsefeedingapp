@@ -13,12 +13,11 @@ public class LoggingAspect {
     @Pointcut("execution(* com.example.mortalcommand.horsefeedingapp.presentation.StableController.*(..))")
     public void allStableControllerMethods() {}
 
-//    @Before("allStableControllerMethods()")
-    @Before("execution(* com.example.mortalcommand.horsefeedingapp.presentation.StableController.readStables())")
+    @Before("allStableControllerMethods()")
     public void logEntry() {
         System.out.println("Start Aspect");
     }
-    @After("execution(* com.example.mortalcommand.horsefeedingapp.presentation.StableController.readStables())")
+    @After("allStableControllerMethods()")
     public void logExit() {
         System.out.println("Start Aspect");
     }
