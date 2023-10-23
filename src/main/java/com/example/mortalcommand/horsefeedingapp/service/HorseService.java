@@ -34,7 +34,10 @@ public class HorseService {
      * @param stableRepository allows accessing stable related data in the database.
      * @param horseMapper implements the logic for mapping horse entities to horseDtos, horseResponseDtos and vice versa
      */
-    public HorseService(HorseRepository horseRepository, OwnerRepository ownerRepository, StableRepository stableRepository, HorseMapper horseMapper) {
+    public HorseService(HorseRepository horseRepository,
+                        OwnerRepository ownerRepository,
+                        StableRepository stableRepository,
+                        HorseMapper horseMapper) {
         this.horseRepository = horseRepository;
         this.ownerRepository = ownerRepository;
         this.stableRepository = stableRepository;

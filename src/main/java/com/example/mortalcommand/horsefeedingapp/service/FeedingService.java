@@ -41,7 +41,11 @@ public class FeedingService {
      * @param feedingScheduleMapper implements the logic for mapping feeding schedule entities to feedingScheduleDtos, feedingScheduleDtos and vice versa
      * @param horseMapper implements the logic for mapping horse entities to horseDtos, horseResponseDtos and vice versa
      */
-    public FeedingService(FeedingScheduleRepository feedingScheduleRepository, HorseRepository horseRepository, FoodTypeRepository foodTypeRepository, FeedingScheduleMapper feedingScheduleMapper, HorseMapper horseMapper) {
+    public FeedingService(FeedingScheduleRepository feedingScheduleRepository,
+                          HorseRepository horseRepository,
+                          FoodTypeRepository foodTypeRepository,
+                          FeedingScheduleMapper feedingScheduleMapper,
+                          HorseMapper horseMapper) {
         this.feedingScheduleRepository = feedingScheduleRepository;
         this.horseRepository = horseRepository;
         this.foodTypeRepository = foodTypeRepository;
@@ -74,32 +78,39 @@ public class FeedingService {
         }
 
 
-        Horse hrs;
         if (optionalHorse.isEmpty()) {
             return ResponseEntity.notFound().build();
-        } else {
-            hrs = optionalHorse.get();
         }
+        Horse hrs = optionalHorse.get();
 
-        FoodType foodTp;
-        if (optionalFoodType.isEmpty()) {
-            foodTp = new FoodType();
-            foodTp.setFoodName(feedingScheduleDto.getFoodTypeName());
-            foodTypeRepository.save(foodTp);
-        } else {
-            foodTp = optionalFoodType.get();
-        }
+        FoodType foodType = createFoodType(feedingScheduleDto, optionalFoodType);
 
-        // Create new feeding schedule
+        FeedingSchedule newFeedingSchedule = storeFeedingScheduleInDB(feedingScheduleDto, hrs, foodType);
+
+        return ResponseEntity.ok(feedingScheduleMapper.fsToFsResponseDto(newFeedingSchedule));
+    }
+
+    private FeedingSchedule storeFeedingScheduleInDB(FeedingScheduleDto feedingScheduleDto, Horse hrs, FoodType foodType) {
         FeedingSchedule newFeedingSchedule = new FeedingSchedule();
         newFeedingSchedule.setHorse(hrs);
-        newFeedingSchedule.setFoodType(foodTp);
+        newFeedingSchedule.setFoodType(foodType);
         newFeedingSchedule.setFeedingStartTime(feedingScheduleDto.getFeedingStartTime());
         newFeedingSchedule.setFeedingEndTime(feedingScheduleDto.getFeedingEndTime());
         newFeedingSchedule.setFoodQuantityInKg(feedingScheduleDto.getFoodQuantityInKg());
         feedingScheduleRepository.save(newFeedingSchedule);
+        return newFeedingSchedule;
+    }
 
-        return ResponseEntity.ok(feedingScheduleMapper.fsToFsResponseDto(newFeedingSchedule));
+    private FoodType createFoodType(FeedingScheduleDto feedingScheduleDto, Optional<FoodType> optionalFoodType) {
+        FoodType foodType;
+        if (optionalFoodType.isEmpty()) {
+            foodType = new FoodType();
+            foodType.setFoodName(feedingScheduleDto.getFoodTypeName());
+            foodTypeRepository.save(foodType);
+        } else {
+            foodType = optionalFoodType.get();
+        }
+        return foodType;
     }
 
     /**
@@ -148,7 +159,8 @@ public class FeedingService {
 
         List<FeedingSchedule> allFeedingSchedules = feedingScheduleRepository.findAll();
         for (FeedingSchedule fs : allFeedingSchedules) {
-            if (fs.getFeedingStartTime().isBefore(feedingDateTimeToCheck) && fs.getFeedingEndTime().isAfter(feedingDateTimeToCheck)) {
+            if (fs.getFeedingStartTime().isBefore(feedingDateTimeToCheck)
+                    && fs.getFeedingEndTime().isAfter(feedingDateTimeToCheck)) {
                 Horse eligibleHorse = fs.getHorse();
                 allEligibleHorses.add(eligibleHorse);
             }

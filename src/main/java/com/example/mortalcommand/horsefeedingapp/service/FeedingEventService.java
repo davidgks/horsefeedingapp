@@ -31,7 +31,11 @@ public class FeedingEventService {
     private final FeedingEventMapper feedingEventMapper;
     private final HorseMapper horseMapper;
 
-    public FeedingEventService(FeedingEventRepository feedingEventRepository, FeedingScheduleRepository feedingScheduleRepository, HorseRepository horseRepository, FeedingEventMapper feedingEventMapper, HorseMapper horseMapper) {
+    public FeedingEventService(FeedingEventRepository feedingEventRepository,
+                               FeedingScheduleRepository feedingScheduleRepository,
+                               HorseRepository horseRepository,
+                               FeedingEventMapper feedingEventMapper,
+                               HorseMapper horseMapper) {
         this.feedingEventRepository = feedingEventRepository;
         this.feedingScheduleRepository = feedingScheduleRepository;
         this.horseRepository = horseRepository;

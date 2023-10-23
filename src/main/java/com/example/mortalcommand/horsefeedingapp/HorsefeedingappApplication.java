@@ -12,7 +12,8 @@ public class HorsefeedingappApplication {
 
 	/**
 	 * This method starts the application.
-	 * @param args
+	 * @param args Command-line arguments passed to the application. These arguments can be used
+	 *             to configure or customize the application's behavior.
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(HorsefeedingappApplication.class, args);

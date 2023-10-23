@@ -10,9 +10,9 @@ public class FeedingScheduleDto {
 
     private String horseGuid;
     private String foodTypeName;
-    private LocalDateTime FeedingStartTime;
-    private LocalDateTime FeedingEndTime;
-    private Long FoodQuantityInKg;
+    private LocalDateTime feedingStartTime;
+    private LocalDateTime feedingEndTime;
+    private Long foodQuantityInKg;
 
     // Getter and setter methods
 
@@ -33,26 +33,26 @@ public class FeedingScheduleDto {
     }
 
     public LocalDateTime getFeedingStartTime() {
-        return FeedingStartTime;
+        return feedingStartTime;
     }
 
     public void setFeedingStartTime(LocalDateTime feedingStartTime) {
-        FeedingStartTime = feedingStartTime;
+        this.feedingStartTime = feedingStartTime;
     }
 
     public LocalDateTime getFeedingEndTime() {
-        return FeedingEndTime;
+        return feedingEndTime;
     }
 
     public void setFeedingEndTime(LocalDateTime feedingEndTime) {
-        FeedingEndTime = feedingEndTime;
+        this.feedingEndTime = feedingEndTime;
     }
 
     public Long getFoodQuantityInKg() {
-        return FoodQuantityInKg;
+        return foodQuantityInKg;
     }
 
     public void setFoodQuantityInKg(Long foodQuantityInKg) {
-        FoodQuantityInKg = foodQuantityInKg;
+        this.foodQuantityInKg = foodQuantityInKg;
     }
 }
